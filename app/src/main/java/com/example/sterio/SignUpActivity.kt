@@ -45,6 +45,7 @@ class SignUpActivity : AppCompatActivity() {
         // Actionbar
         val actionBar = supportActionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar.title = "Create an Account"
 
         // FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()

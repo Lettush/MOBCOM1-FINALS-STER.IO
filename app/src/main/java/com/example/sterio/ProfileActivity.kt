@@ -13,9 +13,6 @@ class ProfileActivity : AppCompatActivity() {
     // ViewBinding
     private lateinit var binding:ActivityProfileBinding
 
-    // ActionBar
-    private lateinit var actionBar: ActionBar
-
     // FirebaseAuth
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -24,9 +21,10 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configure ActionBar
-        //actionBar = supportActionBar!!
-        //actionBar.title = "Profile"
+        // Actionbar
+        val actionBar = supportActionBar
+        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar.title = "My Account"
 
         // Init FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -52,5 +50,10 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed() // returns to previous activity
+        return super.onSupportNavigateUp()
     }
 }

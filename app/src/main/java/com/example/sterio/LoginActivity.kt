@@ -88,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login as $email", Toast.LENGTH_SHORT).show()
 
                 // Opens auth screen
-                startActivity(Intent(this, ProfileActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
             }
             .addOnFailureListener { e->
                 progressBar.visibility = View.GONE
@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
         if (firebaseUser != null) {
             // User is logged in
-            startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
