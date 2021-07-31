@@ -56,6 +56,9 @@ class ReviewsActivity : AppCompatActivity() {
     }
 
     fun readData (v: View) {
+        val data = db.readData()
+
+        binding.rvData.adapter = CustomListAdapter(data)
 //        val data = db.readData()
 //        binding.tvResult.text = ""
 //
