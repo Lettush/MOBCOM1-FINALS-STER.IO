@@ -1,11 +1,14 @@
 package com.example.sterio
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
@@ -16,11 +19,38 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mp: MediaPlayer
     private var totalTime: Int = 0
 
+    // To add action buttons on the action bar
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.action_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_account -> {
+            // User chose the "Settings" item, show the app settings UI...
+            startActivity(Intent(this, ProfileActivity::class.java))
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    // Disables back button press, requires logout
+    override fun onBackPressed() { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Action bar
+        val actionBar = supportActionBar
+        actionBar!!.title = "Now Playing"
+
+        // Media Player
         mp = MediaPlayer.create(this, R.raw.music)
         mp.isLooping = true
         mp.setVolume(0.5f, 0.5f)
@@ -112,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Time labels
     fun createTimeLabel(time: Int): String {
         var timeLabel = ""
         var min = time / 1000 / 60
@@ -124,6 +155,7 @@ class MainActivity : AppCompatActivity() {
         return timeLabel
     }
 
+    // Play Button
     fun playBtnClick(v: View) {
         val playBtn = findViewById<Button>(R.id.playBtn)
         if (mp.isPlaying) {
@@ -135,6 +167,10 @@ class MainActivity : AppCompatActivity() {
             mp.start()
             playBtn.setBackgroundResource(R.drawable.stop)
         }
+    }
 
+    fun reviewBtnClick(v: View) {
+        val viewReviewBtn = findViewById<Button>(R.id.btnViewReviews)
+        startActivity(Intent(this, ReviewsActivity::class.java))
     }
 }
